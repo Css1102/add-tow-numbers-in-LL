@@ -1,0 +1,79 @@
+
+class Solution
+{
+    public:
+    
+  void insertAttail(Node* &head, Node* &tail, int val){
+  Node*n=new Node(val);
+  if(head==NULL){
+     head=n;
+     tail=n;
+  }
+  else{
+    tail->next=n;
+    tail=tail->next;
+  }
+  }
+  
+  struct Node* reverse(Node*head){
+     Node*prev=NULL;
+     Node*curr=head;
+     Node*n;
+     while(curr!=NULL){
+     n=curr->next;
+     curr->next=prev;
+     prev=curr;
+     curr=n;
+     }
+    return prev;
+    }
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+    // Node*newnode= new node(-1);
+     Node*anshead=NULL;
+  Node*anstail=NULL;
+    if(first==NULL){
+    return second;
+    }
+    if(second==NULL){
+    return first;
+    }
+    if(first==NULL && second==NULL){
+    return anshead;
+    }
+    Node*h1=reverse(first);
+    Node*h2=reverse(second);
+    int carry=0;
+    int dig=0;
+while(h1!=NULL && h2!=NULL){
+int sum1= h1->data+h2->data+carry;
+carry=sum1/10;
+dig=sum1%10;
+insertAttail(anshead, anstail, dig);
+h1=h1->next;
+h2=h2->next;
+}
+while(h1!=NULL){
+int sum1=carry+h1->data;
+carry=sum1/10;
+dig=sum1%10;
+insertAttail(anshead,anstail,dig);
+h1=h1->next;
+}
+while(h2!=NULL){
+int sum1=carry+h2->data;
+carry=sum1/10;
+dig=sum1%10;
+insertAttail(anshead,anstail,dig);
+h2=h2->next;
+}
+while(carry!=0){
+int sum1=carry;
+carry= sum1/10;
+dig=sum1%10;
+insertAttail(anshead,anstail,dig);
+}
+Node*ans=reverse(anshead);
+return ans;
+}
+};
